@@ -1,0 +1,13 @@
+# Architecture
+
+`TermiFreedomCore` contains validated connection arguments, the local server store, scoped Keychain records, key-installation commands, and the SFTP v3 packet codec/client. `TermiFreedom` is the native UI and lifecycle layer. SwiftTerm is a pinned native terminal dependency.
+
+SSH terminals use a PTY backed by `/usr/bin/ssh`. SFTP uses its own `/usr/bin/ssh -s … sftp` child with framed binary packets over pipes. It does not parse directory listings from terminal text, run a remote shell for browsing, or introduce a separate SSH implementation. Both inherit OpenSSH configuration, host verification and the agent, and use the same signed askpass handoff when appropriate. Forwarding and shared control connections are disabled.
+
+SFTP operations are serialized per connection. Packet size is limited to 1 MiB, file chunks to 64 KiB, directory listings to 10,000 entries, transfer history to 50 entries, and captured SSH diagnostics to 32 KiB. File contents stream through bounded chunks. UTF-8 paths retain spaces, quotes, Unicode and wildcard characters without shell interpolation. Filenames that cannot be represented accurately are rejected instead of silently altered.
+
+Uploads create an exclusive temporary sibling file. Completion uses a no-overwrite rename, or the server’s atomic POSIX rename extension after explicit replacement approval. Downloads use a private temporary sibling followed by atomic local rename. Interrupted connections may leave a remote `.part` file; final targets are not deliberately truncated. Cancellation makes a cleanup attempt, then interrupts the connection if necessary. Transfer confirmation is not an fsync guarantee on every server.
+
+Server metadata stays in Application Support. Passwords and the authentication-request signing secret stay in local Keychain entries. Signed, expiring authentication leases bind a request to a child process the app launched. The helper verifies its parent PID and signature before answering, requires an exact endpoint password prompt, and automatically supplies a password at most once per connection. Other challenges require user input. Existing ad-hoc signing identities may require Keychain permission after a rebuild.
+
+The app identity and current data/credential namespaces are TermiFreedom. `LegacyCompatibility.swift` contains the read-only lookup identifiers needed to adopt previous data safely. Previous folders are copied without overwrite or deletion; credentials are copied only on first use. Private user data is never a source resource. Packaging is allowlisted and audited against the local private server records.

@@ -1,0 +1,4 @@
+Source: https://github.com/migueldeicaza/SwiftTerm
+Revision: b7f9ea4da6be3ad02e4f3be761ab3fe1dc79bb15 (2026-10-30 checkout)
+License: MIT; see LICENSE.
+Build helper is unmodified. Local patch: clipboardCopy and clipboardRead in MacLocalTerminalView.swift are open instead of public so Harbor can deny remote OSC 52 clipboard access. Package.swift is reduced to macOS library plus required build-info plugin; CLI, documentation and portable PNG dependencies are omitted. No swift-subprocess dependency.

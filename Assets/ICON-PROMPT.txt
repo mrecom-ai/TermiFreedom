@@ -1,0 +1,5 @@
+Tool: built-in imagegen (not the API/CLI fallback).
+Requested transparency: true.
+
+Final generation prompt:
+Use case: logo-brand. Asset type: final native macOS app icon and standalone brand mark for an independent SSH/SFTP app named TermiFreedom. Create one beautifully crafted, original square macOS icon: a deep midnight-navy rounded-square tile, generous transparent margin outside it, with a very crisp warm-white terminal chevron and underscore that flow into an abstract soaring wing or swift bird in luminous teal/mint. The terminal and wing should read as one clever simple mark, suggesting freedom and fast direct connections. Match a premium restrained native Mac utility, subtle dimensional material and gentle rim light, not busy 3D decoration. Strong silhouette, clean geometry, consistent strokes, useful at 32 pixels. Centered straight-on, square composition. No lettering or words, no border around canvas, no mockup, no extra objects, no watermark. Transparent background outside the icon tile. Return a large clean 1024x1024 square bitmap suitable for an app icon.

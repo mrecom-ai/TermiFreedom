@@ -1,0 +1,35 @@
+INSTALL TERMIFREEDOM
+
+1. Open the downloaded DMG (or unzip the ZIP).
+2. Drag TermiFreedom into Applications. For an update, quit the old app first
+   and replace it in Applications. Eject the disk image afterward.
+3. Open TermiFreedom from Applications.
+
+macOS 14 or later is required. Choose a download matching your Mac:
+arm64 is for Apple silicon; x86_64 is for Intel. Only architectures actually
+listed in a release are available. Fresh installations start with no servers.
+
+UNINSTALL
+
+Quit TermiFreedom, then move it from Applications to Trash.
+No installer, background service, or administrator helper is required.
+
+To also erase your saved local data, first open the TermiFreedom menu and
+choose "Erase Local TermiFreedom Data…". Close connections first, read the
+warning, and type ERASE to confirm. The app deletes its current and previous
+local data folders (including app-managed private keys), app-owned passwords
+and authentication entries in Keychain, then quits. This cannot be undone.
+Keep another way to access servers before deleting an app-managed private key.
+
+External SSH keys, SSH configuration, files you downloaded, and files on
+servers are preserved. Public keys previously installed on servers remain;
+revoke those on each server separately if you want to remove that access.
+Deleting the app alone retains its local data for later reinstalls.
+
+SOURCE BUILDS
+
+Install a Swift 6.2+ toolchain on macOS 14+, then run:
+  ./scripts/test.sh
+  ./scripts/build-app.sh
+Move outputs/TermiFreedom.app to Applications.
+Source builds are locally signed, not Apple-notarized public downloads.
